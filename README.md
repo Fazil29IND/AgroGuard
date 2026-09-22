@@ -2,27 +2,11 @@
 
 <div align="center">
 
-[![Release](https://img.shields.io/badge/Release-v1.0.0-047857?style=for-the-badge&logo=github)](https://github.com/AgroGuard/AgroGuard/releases)
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
-[![Model](https://img.shields.io/badge/Backbone-ConvNeXt--Tiny-10B981?style=for-the-badge)](https://github.com/facebookresearch/ConvNeXt)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.110%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Open In Colab](https://img.shields.io/badge/Colab-Run%20on%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)](https://colab.research.google.com/github/AgroGuard/AgroGuard/blob/main/Colab/Colab%20AgroGuard%20Model.ipynb)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
-
-<br>
-
-**Single unified end-to-end computer vision diagnostic engine providing real-time crop disease classification across 48 pathologies and 9 botanical crop species, synthesized with university agronomic advisory protocols.**
-
-[Key Features](#-key-features) • [Botanical Matrix](#-supported-botanical-crops--48-pathology-classes) • [Training Pipelines](#-triple-training-ecosystem) • [Quickstart](#-quickstart--local-deployment) • [Architecture](#-project-architecture--directory-layout) • [Citations](#-academic-citations--attribution)
-
-</div>
-
 ---
 
 ## 🌟 What is AgroGuard v1.0.0?
 
-**AgroGuard v1.0.0** is the inaugural flagship release of an end-to-end agricultural computer vision and diagnostic platform designed for farmers, researchers, and agronomists. 
+**AgroGuard v1.0.0** is the inaugural flagship release of an end-to-end agricultural computer vision and diagnostic platform designed for farmers, researchers, and agronomists.
 
 Instead of fragmented multi-model pipelines, AgroGuard operates on a single unified **ConvNeXt-Tiny** deep neural network trained on **51,320 standardized field leaf images** across **48 joint crop-pathology classes**. When a leaf image is captured, the system performs instantaneous inference and pairs the diagnosis with **Tamil Nadu Agricultural University (TNAU) Crop Protection Compendium (CPCPP)** phytosanitary recommendations (chemical, organic, and cultural protocols).
 
@@ -89,8 +73,8 @@ AgroGuard/
 ├── AgroGuard Model.ipynb                  # Local computer GPU training & evaluation notebook
 ├── Amanullah Fazil S (44111431).pptx      # Project presentation slide deck
 ├── best_agroguard_model.pth               # Pre-trained ConvNeXt-Tiny weights checkpoint (~111 MB)
-├── CODE_OF_CONDUCT.md                     # Contributor Covenant v2.1
-├── CONTRIBUTING.md                        # Open-source contribution guidelines
+├── Code of Conduct.md                     # Contributor Covenant v2.1
+├── Contribution.md                        # Open-source contribution guidelines
 ├── knowledge_base.py                      # TNAU CPCPP 48-class phytosanitary advisory engine
 ├── LICENSE                                # MIT License (Amanullah Fazil S)
 ├── main.py                                # Production FastAPI diagnostic web server
@@ -104,19 +88,19 @@ AgroGuard/
 
 ## 🌾 Supported Botanical Crops & 48 Pathology Classes
 
-| # | Crop Species | Botanical Name | Total Classes | Included Pathologies & Health States |
-|---|--------------|----------------|:-------------:|--------------------------------------|
-| 1 | **Apple** | *Malus domestica* | 4 | Apple Scab, Black Rot, Cedar Apple Rust, Healthy |
-| 2 | **Black Gram** | *Vigna mungo* | 5 | Anthracnose, Leaf Crinkle, Powdery Mildew, Yellow Mosaic, Healthy |
-| 3 | **Corn / Maize** | *Zea mays* | 4 | Cercospora Leaf Spot (Gray Spot), Common Rust, Northern Leaf Blight, Healthy |
-| 4 | **Grape** | *Vitis vinifera* | 4 | Black Rot, Esca (Black Measles), Leaf Blight, Healthy |
-| 5 | **Orange (Citrus)** | *Citrus sinensis* / *aurantifolia* | 6 | Black Spot, Canker, Citrus Greening (HLB), Melanose, Scab, Healthy |
-| 6 | **Paddy / Rice** | *Oryza sativa* | 10 | Bacterial Leaf Blight, Bacterial Leaf Streak, Bacterial Panicle Blight, Blast, Brown Spot, Dead Heart, Downy Mildew, Hispa, Tungro, Healthy |
-| 7 | **Pepper (Bell / Chilli)** | *Capsicum annuum* | 2 | Bacterial Spot, Healthy |
-| 8 | **Potato** | *Solanum tuberosum* | 3 | Early Blight, Late Blight, Healthy |
-| 9 | **Tomato** | *Solanum lycopersicum* | 10 | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Tomato Mosaic Virus, Yellow Leaf Curl Virus, Healthy |
+| # | Crop Species                     | Botanical Name                         | Total Classes | Included Pathologies & Health States                                                                                                                      |
+| - | -------------------------------- | -------------------------------------- | :-----------: | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 | **Apple**                  | *Malus domestica*                    |       4       | Apple Scab, Black Rot, Cedar Apple Rust, Healthy                                                                                                          |
+| 2 | **Black Gram**             | *Vigna mungo*                        |       5       | Anthracnose, Leaf Crinkle, Powdery Mildew, Yellow Mosaic, Healthy                                                                                         |
+| 3 | **Corn / Maize**           | *Zea mays*                           |       4       | Cercospora Leaf Spot (Gray Spot), Common Rust, Northern Leaf Blight, Healthy                                                                              |
+| 4 | **Grape**                  | *Vitis vinifera*                     |       4       | Black Rot, Esca (Black Measles), Leaf Blight, Healthy                                                                                                     |
+| 5 | **Orange (Citrus)**        | *Citrus sinensis* / *aurantifolia* |       6       | Black Spot, Canker, Citrus Greening (HLB), Melanose, Scab, Healthy                                                                                        |
+| 6 | **Paddy / Rice**           | *Oryza sativa*                       |      10      | Bacterial Leaf Blight, Bacterial Leaf Streak, Bacterial Panicle Blight, Blast, Brown Spot, Dead Heart, Downy Mildew, Hispa, Tungro, Healthy               |
+| 7 | **Pepper (Bell / Chilli)** | *Capsicum annuum*                    |       2       | Bacterial Spot, Healthy                                                                                                                                   |
+| 8 | **Potato**                 | *Solanum tuberosum*                  |       3       | Early Blight, Late Blight, Healthy                                                                                                                        |
+| 9 | **Tomato**                 | *Solanum lycopersicum*               |      10      | Bacterial Spot, Early Blight, Late Blight, Leaf Mold, Septoria Leaf Spot, Spider Mites, Target Spot, Tomato Mosaic Virus, Yellow Leaf Curl Virus, Healthy |
 
-> For exhaustive botanical descriptions, visual symptoms, chemical protocols, and Tamil regional common names, refer to [Plant and Disease Information.md](Plant%20and%20Disease%20Information.md).
+> For exhaustive botanical descriptions, visual symptoms, chemical protocols, and Tamil regional common names, refer to [Plant and Disease Information.md](<Plant%20and%20Disease%20Information.md>).
 
 ---
 
@@ -136,19 +120,22 @@ The standardized dataset comprises **51,320 leaf images** partitioned with fixed
 AgroGuard provides three complete, self-contained training pipelines tailored to different compute environments:
 
 ### 1. Google Colab Cloud GPU Training (`Colab/`)
-- Open [`Colab/Colab AgroGuard Model.ipynb`](Colab/Colab%20AgroGuard%20Model.ipynb) or click the badge: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AgroGuard/AgroGuard/blob/main/Colab/Colab%20AgroGuard%20Model.ipynb)
+
+- Open [`Colab/Colab AgroGuard Model.ipynb`](<Colab/Colab%20AgroGuard%20Model.ipynb>) or click the badge: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](<https://colab.research.google.com/github/AgroGuard/AgroGuard/blob/main/Colab/Colab%20AgroGuard%20Model.ipynb>)
 - In Colab, select: **Runtime ➔ Change runtime type ➔ T4 GPU**.
 - Upload `Colab/Dataset.zip` or mount Google Drive directly in the notebook.
 - Run all cells to train with mixed precision (AMP) and download `best_agroguard_model.pth`.
 
 ### 2. Kaggle Cloud GPU Training (`Kaggle/`)
+
 - In Kaggle, create a new notebook and attach `Kaggle/Dataset.zip` as a dataset.
-- Import [`Kaggle/Kaggle Model.ipynb`](Kaggle/Kaggle%20Model.ipynb).
+- Import [`Kaggle/Kaggle Model.ipynb`](<Kaggle/Kaggle%20Model.ipynb>).
 - Select accelerator **GPU Tesla T4 x 2** or **P100**.
 - Train and download the resulting weights from `/kaggle/working/best_agroguard_model.pth`.
 
 ### 3. Local Dedicated GPU Training
-- Open [`AgroGuard Model.ipynb`](AgroGuard%20Model.ipynb) in JupyterLab or VS Code.
+
+- Open [`AgroGuard Model.ipynb`](<AgroGuard%20Model.ipynb>) in JupyterLab or VS Code.
 - Uses local NVIDIA CUDA acceleration and directly writes `best_agroguard_model.pth` into the repository root.
 
 ---
@@ -156,23 +143,28 @@ AgroGuard provides three complete, self-contained training pipelines tailored to
 ## 🚀 Quickstart & Local Deployment
 
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/AgroGuard/AgroGuard.git
 cd AgroGuard
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 3. Launch the Diagnostic Server
+
 ```bash
 python main.py
 ```
 
 ### 4. Access the Dashboard
+
 Open your browser and navigate to:
+
 ```text
 http://localhost:8000
 ```
@@ -184,6 +176,7 @@ http://localhost:8000
 ## 📦 Large Files & Dataset Management
 
 To adhere to GitHub's **100 MB per-file limit**:
+
 - Model checkpoints (`*.pth`) and dataset archives (`*.zip`) are excluded from normal Git commits via `.gitignore`.
 - Skeletons for `Colab/`, `Kaggle/`, and `Dataset/` are preserved via `.gitkeep`.
 - The complete dataset can be downloaded from our [GitHub Releases](https://github.com/AgroGuard/AgroGuard/releases) or mounted using Google Drive / Kaggle as described above.
@@ -200,5 +193,5 @@ To adhere to GitHub's **100 MB per-file limit**:
 
 ## 📄 License & Authorship
 
-Developed with ❤️ by **Amanullah Fazil S**.  
+Developed with ❤️ by **Amanullah Fazil S**.
 Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for terms.
