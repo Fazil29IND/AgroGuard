@@ -1,10 +1,10 @@
-# 🌿 AgroGuard — Unified Agricultural Vision Diagnostic Engine (v1.0.0)
+# AgroGuard (v1.0.0)
 
 <div align="center">
 
 ---
 
-## 🌟 What is AgroGuard v1.0.0?
+## What is AgroGuard v1.0.0?
 
 **AgroGuard v1.0.0** is the inaugural flagship release of an end-to-end agricultural computer vision and diagnostic platform designed for farmers, researchers, and agronomists.
 
@@ -12,22 +12,22 @@ Instead of fragmented multi-model pipelines, AgroGuard operates on a single unif
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- 🧠 **Unified Vision Architecture**: Single end-to-end **ConvNeXt-Tiny** backbone with 28M parameters, achieving high accuracy with fast inference latency.
-- 🌾 **48 Unified Classes across 9 Crops**: Covers staple cereals, pulses, fruits, and nightshades (Rice, Maize, Black Gram, Apple, Citrus, Grape, Tomato, Potato, Pepper).
-- ☀️ **Field-Condition Robustness**: Specialized training augmentations simulating harsh midday sunlight, specular leaf glare, canopy shadows, and handheld camera blur.
-- ⚖️ **Imbalance-Resilient Training**: Employs `WeightedRandomSampler` and smoothed inverse-frequency loss weighting to neutralize extreme 550:1 class imbalances.
-- 🚜 **Actionable Agronomic Advisory**: Instant phytosanitary treatment steps, chemical dosages, organic controls, and preventive cultural practices.
-- ⚡ **Triple Training Ecosystem**:
+-  **Unified Vision Architecture**: Single end-to-end **ConvNeXt-Tiny** backbone with 28M parameters, achieving high accuracy with fast inference latency.
+-  **48 Unified Classes across 9 Crops**: Covers staple cereals, pulses, fruits, and nightshades (Rice, Maize, Black Gram, Apple, Citrus, Grape, Tomato, Potato, Pepper).
+-  **Field-Condition Robustness**: Specialized training augmentations simulating harsh midday sunlight, specular leaf glare, canopy shadows, and handheld camera blur.
+-  **Imbalance-Resilient Training**: Employs `WeightedRandomSampler` and smoothed inverse-frequency loss weighting to neutralize extreme 550:1 class imbalances.
+-  **Actionable Agronomic Advisory**: Instant phytosanitary treatment steps, chemical dosages, organic controls, and preventive cultural practices.
+-  **Triple Training Ecosystem**:
   1. **Google Colab Cloud GPU** (`Colab/Colab AgroGuard Model.ipynb` + `Colab/Dataset.zip`)
   2. **Kaggle Cloud GPU** (`Kaggle/Kaggle Model.ipynb` + `Kaggle/Dataset.zip`)
   3. **Local Dedicated GPU** (`AgroGuard Model.ipynb`)
-- 💻 **Modern Glassmorphic Web App**: FastAPI backend paired with high-contrast, responsive client dashboard and automatic hot-reloading for model checkpoints.
+-  **Modern Glassmorphic Web App**: FastAPI backend paired with high-contrast, responsive client dashboard and automatic hot-reloading for model checkpoints.
 
 ---
 
-## 📁 Project Architecture & Directory Layout
+##  Project Architecture & Directory Layout
 
 ```text
 AgroGuard/
@@ -86,7 +86,7 @@ AgroGuard/
 
 ---
 
-## 🌾 Supported Botanical Crops & 48 Pathology Classes
+##  Supported Botanical Crops & 48 Pathology Classes
 
 | # | Crop Species                     | Botanical Name                         | Total Classes | Included Pathologies & Health States                                                                                                                      |
 | - | -------------------------------- | -------------------------------------- | :-----------: | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -104,7 +104,7 @@ AgroGuard/
 
 ---
 
-## 📊 Dataset Distribution & Stratification
+##  Dataset Distribution & Stratification
 
 The standardized dataset comprises **51,320 leaf images** partitioned with fixed seed `42`:
 
@@ -115,7 +115,7 @@ The standardized dataset comprises **51,320 leaf images** partitioned with fixed
 
 ---
 
-## ⚡ Triple Training Ecosystem
+##  Triple Training Ecosystem
 
 AgroGuard provides three complete, self-contained training pipelines tailored to different compute environments:
 
@@ -140,7 +140,7 @@ AgroGuard provides three complete, self-contained training pipelines tailored to
 
 ---
 
-## 🚀 Quickstart & Local Deployment
+##  Quickstart & Local Deployment
 
 ### 1. Clone the Repository
 
@@ -173,7 +173,7 @@ http://localhost:8000
 
 ---
 
-## 📦 Large Files & Dataset Management
+##  Large Files & Dataset Management
 
 To adhere to GitHub's **100 MB per-file limit**:
 
@@ -183,7 +183,7 @@ To adhere to GitHub's **100 MB per-file limit**:
 
 ---
 
-## 📚 Academic Citations & Attribution
+##  Academic Citations & Attribution
 
 1. **Hughes, D.P., Salathé, M. (2015).** *An open access repository of images on plant health to enable the development of mobile disease diagnostics through machine learning and crowdsourcing.* **arXiv:1511.08060** (PlantVillage, **CC0-1.0**).
 2. **Rauf, H.T., Saleem, B.A., Lali, M.I.U., Khan, M.A., Sharif, M., Bukhari, S.A.C. (2019).** *A citrus fruits and leaves dataset for detection and classification of citrus diseases through machine learning.* **Data in Brief**, 26, 104340. [https://doi.org/10.17632/3f83gxmv57.2](https://doi.org/10.17632/3f83gxmv57.2) (**CC BY 4.0**).
@@ -191,7 +191,7 @@ To adhere to GitHub's **100 MB per-file limit**:
 
 ---
 
-## 📄 License & Authorship
+##  License & Authorship
 
 Developed with ❤️ by **Amanullah Fazil S**.
 Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for terms.
