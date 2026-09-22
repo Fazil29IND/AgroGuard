@@ -3,530 +3,284 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgroGuard Enterprise — Autonomous Crop Pathology Diagnostic & Telemetry System</title>
-  <meta name="description" content="Autonomous deep learning agricultural diagnostic workstation powered by ConvNeXt-Tiny. Provides high-precision crop pathology identification and TNAU CPCPP phytosanitary prescriptions.">
+  <title>AgroGuard — AI Crop Disease Diagnosis & Treatment Advisory</title>
+  <meta name="description" content="Simple and professional AI-powered crop disease diagnosis and treatment advisory system.">
   
-  <!-- Typography Tokens -->
+  <!-- Modern Clean Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
-  <div class="app-layout">
-    
-    <!-- Top Enterprise Navigation & Telemetry Console -->
-    <header class="enterprise-header">
-      <div class="header-inner">
-        
-        <div class="brand-block">
-          <div class="brand-mark">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="M12 8v8"/>
-              <path d="M8 12h8"/>
-            </svg>
-          </div>
-          <div class="brand-text">
-            <div class="brand-title-row">
-              <span class="brand-name">AgroGuard</span>
-              <span class="brand-edition">Enterprise v1.0</span>
-            </div>
-            <div class="brand-subtitle">Autonomous Crop Pathology Diagnostic & Telemetry System</div>
-          </div>
-        </div>
-
-        <!-- Real-Time Hardware & Model Engine Telemetry -->
-        <div class="header-telemetry">
-          <div class="telemetry-item" id="headerEngineTag" title="Deep Neural Vision Engine">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
-              <rect x="9" y="9" width="6" height="6"/>
-              <line x1="9" y1="1" x2="9" y2="4"/>
-              <line x1="15" y1="1" x2="15" y2="4"/>
-              <line x1="9" y1="20" x2="9" y2="23"/>
-              <line x1="15" y1="20" x2="15" y2="23"/>
-              <line x1="20" y1="9" x2="23" y2="9"/>
-              <line x1="20" y1="14" x2="23" y2="14"/>
-              <line x1="1" y1="9" x2="4" y2="9"/>
-              <line x1="1" y1="14" x2="4" y2="14"/>
-            </svg>
-            <span>ConvNeXt-Tiny · Single-Stage Vision</span>
-          </div>
-
-          <div class="telemetry-item badge-operational" id="headerStatusBadge" onclick="checkModelStatus()" title="Click to verify weights integrity">
-            <span class="pulse-indicator" id="headerStatusDot"></span>
-            <span id="headerStatusText">Operational · 48 Classes Active</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Diagnostic Progression Pipeline -->
-      <div class="pipeline-tracker">
-        <div class="pipeline-step active">
-          <div class="step-badge">Phase 01</div>
-          <div class="step-info">
-            <div class="step-name">Specimen Acquisition</div>
-            <div class="step-detail">Macro Foliar Ingestion & Normalization</div>
-          </div>
-        </div>
-
-        <div class="pipeline-divider">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
+  <!-- Top Simple Navigation Bar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <div class="brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M12 8v8"/>
+            <path d="M8 12h8"/>
           </svg>
         </div>
-
-        <div class="pipeline-step active">
-          <div class="step-badge">Phase 02</div>
-          <div class="step-info">
-            <div class="step-name">ConvNeXt-Tiny Inference</div>
-            <div class="step-detail">Autonomous Multi-Taxa Classification</div>
-          </div>
-        </div>
-
-        <div class="pipeline-divider">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </div>
-
-        <div class="pipeline-step active">
-          <div class="step-badge">Phase 03</div>
-          <div class="step-info">
-            <div class="step-name">Phytosanitary Protocol</div>
-            <div class="step-detail">TNAU CPCPP Clinical Prescription</div>
-          </div>
-        </div>
+        <span class="brand-title">AgroGuard</span>
+        <span class="status-pill" id="headerStatusBadge" onclick="checkModelStatus()">
+          <span class="status-dot"></span>
+          <span id="headerStatusText">Operational</span>
+        </span>
       </div>
-    </header>
+      <div class="nav-subtitle">Crop Disease Diagnosis & Treatment Advisory</div>
+    </div>
+  </nav>
 
-    <!-- Main Diagnostic Workstation Grid -->
-    <main class="workstation-grid">
+  <!-- Main Workstation Layout -->
+  <main class="main-container">
+    <div class="layout-grid">
 
-      <!-- LEFT COLUMN: Specimen Inspection & Input Console -->
-      <section class="console-panel" aria-label="Specimen Examination Console">
-        
-        <div class="panel-header">
-          <div class="panel-title-wrap">
-            <div class="panel-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                <circle cx="12" cy="13" r="4"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="panel-title">Foliar Specimen Examination</h2>
-              <p class="panel-desc">Digital ingestion, optical reticle calibration, and botanical taxonomy filter</p>
-            </div>
-          </div>
+      <!-- LEFT: Upload & Image Selection -->
+      <section class="card upload-card">
+        <div class="card-header">
+          <h1 class="card-title">Upload Leaf Image</h1>
+          <p class="card-desc">Select or capture a clear photo of an affected plant leaf</p>
         </div>
 
-        <!-- Botanical Taxon Filtering Segment -->
-        <div class="taxa-filter-block">
-          <div class="taxa-header">
-            <span class="taxa-label">Botanical Taxon Scope</span>
-            <span class="taxa-status" id="activeFilterBadge">Autonomous Multi-Taxa Detection</span>
-          </div>
-
-          <div class="taxa-scroll-row" id="cropFilterChips">
-            <button type="button" class="taxa-chip active" data-crop="all" onclick="setCropFilter('all', this)">
-              <span class="taxa-dot"></span>
-              All Taxa (Autonomous)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Tomato" onclick="setCropFilter('Tomato', this)">
-              <span class="taxa-dot"></span>
-              Solanum lycopersicum (Tomato)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Paddy" onclick="setCropFilter('Paddy', this)">
-              <span class="taxa-dot"></span>
-              Oryza sativa (Rice)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Potato" onclick="setCropFilter('Potato', this)">
-              <span class="taxa-dot"></span>
-              Solanum tuberosum (Potato)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Corn" onclick="setCropFilter('Corn', this)">
-              <span class="taxa-dot"></span>
-              Zea mays (Maize)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Orange" onclick="setCropFilter('Orange', this)">
-              <span class="taxa-dot"></span>
-              Citrus sinensis (Citrus)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Grape" onclick="setCropFilter('Grape', this)">
-              <span class="taxa-dot"></span>
-              Vitis vinifera (Grape)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Pepper" onclick="setCropFilter('Pepper', this)">
-              <span class="taxa-dot"></span>
-              Capsicum annuum (Pepper)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Black_gram" onclick="setCropFilter('Black_gram', this)">
-              <span class="taxa-dot"></span>
-              Vigna mungo (Black Gram)
-            </button>
-            <button type="button" class="taxa-chip" data-crop="Apple" onclick="setCropFilter('Apple', this)">
-              <span class="taxa-dot"></span>
-              Malus domestica (Apple)
-            </button>
-          </div>
-        </div>
-
-        <!-- Specimen Upload & Optical Ingestion Dropzone -->
-        <div class="specimen-dropzone" id="uploadZone" onclick="triggerFileInput()">
+        <!-- Drag & Drop Upload Zone -->
+        <div class="dropzone" id="uploadZone" onclick="triggerFileInput()">
           <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
           
-          <div class="dropzone-core">
-            <div class="dropzone-icon-box">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <div class="dropzone-content">
+            <div class="upload-icon-circle">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="17 8 12 3 7 8"/>
                 <line x1="12" y1="3" x2="12" y2="15"/>
               </svg>
             </div>
-            <div class="dropzone-heading">Select or Drag Foliar Specimen</div>
-            <div class="dropzone-meta">Compatible with JPEG, PNG & WebP · Auto-calibrated for daylight conditions</div>
+            <div class="dropzone-text">Drop leaf photo here, or browse</div>
+            <div class="dropzone-sub">Supports JPG, PNG, and WebP</div>
             
-            <div class="dropzone-actions">
-              <button type="button" class="btn btn-primary" id="btnSelectFile" onclick="event.stopPropagation(); triggerFileInput()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="dropzone-buttons">
+              <button type="button" class="btn btn-primary" onclick="event.stopPropagation(); triggerFileInput()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
                 </svg>
-                <span>Browse Local File</span>
+                <span>Choose File</span>
               </button>
 
-              <button type="button" class="btn btn-secondary" id="btnCamera" onclick="event.stopPropagation(); triggerCamera()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <button type="button" class="btn btn-outline" onclick="event.stopPropagation(); triggerCamera()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
                   <circle cx="12" cy="13" r="4"/>
                 </svg>
-                <span>Initialize Camera</span>
+                <span>Take Photo</span>
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Optical Reticle & Scanning Inspection View -->
-        <div class="optical-reticle-view" id="previewContainer">
-          <div class="reticle-hud">
-            <span class="hud-bracket top-left"></span>
-            <span class="hud-bracket top-right"></span>
-            <span class="hud-bracket bottom-left"></span>
-            <span class="hud-bracket bottom-right"></span>
-            <div class="hud-crosshair"></div>
-            <div class="hud-coordinates">RETICLE: 256×256 · AMP AUTOCAST</div>
-          </div>
-
-          <img id="previewImage" class="reticle-image" alt="Specimen foliar image preview">
-          <div class="scan-grid-overlay" id="scanGrid"></div>
+        <!-- Preview & Laser Scanner -->
+        <div class="preview-box" id="previewContainer">
+          <img id="previewImage" class="preview-img" alt="Leaf preview">
           <div class="scan-laser" id="scanLaser"></div>
         </div>
 
-        <!-- Standardized Laboratory Benchmark Reference Specimens -->
-        <div class="benchmarks-container">
-          <div class="benchmarks-header">
-            <div class="benchmarks-title-group">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-              </svg>
-              <span>Standardized Pathological Benchmark Specimens</span>
-            </div>
-            <span class="benchmarks-sub">Select verified reference data to evaluate diagnostic response</span>
+        <!-- Optional Crop Filter -->
+        <div class="filter-section">
+          <div class="section-heading">
+            <span class="heading-text">Filter by Crop</span>
+            <span class="active-filter-label" id="activeFilterBadge">All Crops</span>
           </div>
+          <div class="crop-pills" id="cropFilterChips">
+            <button type="button" class="crop-pill active" data-crop="all" onclick="setCropFilter('all', this)">All Crops</button>
+            <button type="button" class="crop-pill" data-crop="Tomato" onclick="setCropFilter('Tomato', this)">Tomato</button>
+            <button type="button" class="crop-pill" data-crop="Paddy" onclick="setCropFilter('Paddy', this)">Rice (Paddy)</button>
+            <button type="button" class="crop-pill" data-crop="Potato" onclick="setCropFilter('Potato', this)">Potato</button>
+            <button type="button" class="crop-pill" data-crop="Corn" onclick="setCropFilter('Corn', this)">Corn</button>
+            <button type="button" class="crop-pill" data-crop="Orange" onclick="setCropFilter('Orange', this)">Citrus</button>
+            <button type="button" class="crop-pill" data-crop="Grape" onclick="setCropFilter('Grape', this)">Grape</button>
+            <button type="button" class="crop-pill" data-crop="Pepper" onclick="setCropFilter('Pepper', this)">Pepper</button>
+            <button type="button" class="crop-pill" data-crop="Black_gram" onclick="setCropFilter('Black_gram', this)">Black Gram</button>
+            <button type="button" class="crop-pill" data-crop="Apple" onclick="setCropFilter('Apple', this)">Apple</button>
+          </div>
+        </div>
 
-          <div class="benchmark-grid">
-            <button type="button" class="benchmark-card" onclick="loadSample('Paddy___Blast')">
-              <div class="bm-crop">Oryza sativa (Rice)</div>
-              <div class="bm-condition">Pyricularia oryzae (Blast)</div>
+        <!-- Quick Sample Specimens -->
+        <div class="samples-section">
+          <div class="section-heading">
+            <span class="heading-text">Test Samples</span>
+            <span class="heading-hint">Click to test instantly</span>
+          </div>
+          <div class="samples-grid">
+            <button type="button" class="sample-btn" onclick="loadSample('Paddy___Blast')">
+              <span class="sample-crop">Rice</span>
+              <span class="sample-disease">Rice Blast</span>
             </button>
-            
-            <button type="button" class="benchmark-card" onclick="loadSample('Tomato___Early_blight')">
-              <div class="bm-crop">Solanum lycopersicum</div>
-              <div class="bm-condition">Alternaria solani (Early Blight)</div>
+            <button type="button" class="sample-btn" onclick="loadSample('Tomato___Early_blight')">
+              <span class="sample-crop">Tomato</span>
+              <span class="sample-disease">Early Blight</span>
             </button>
-
-            <button type="button" class="benchmark-card" onclick="loadSample('Potato___Late_blight')">
-              <div class="bm-crop">Solanum tuberosum</div>
-              <div class="bm-condition">Phytophthora infestans (Late Blight)</div>
+            <button type="button" class="sample-btn" onclick="loadSample('Potato___Late_blight')">
+              <span class="sample-crop">Potato</span>
+              <span class="sample-disease">Late Blight</span>
             </button>
-
-            <button type="button" class="benchmark-card" onclick="loadSample('Corn___Common_rust')">
-              <div class="bm-crop">Zea mays (Maize)</div>
-              <div class="bm-condition">Puccinia sorghi (Common Rust)</div>
+            <button type="button" class="sample-btn" onclick="loadSample('Corn___Common_rust')">
+              <span class="sample-crop">Corn</span>
+              <span class="sample-disease">Common Rust</span>
             </button>
-
-            <button type="button" class="benchmark-card" onclick="loadSample('Orange___Citrus_greening')">
-              <div class="bm-crop">Citrus sinensis</div>
-              <div class="bm-condition">Candidatus Liberibacter (HLB)</div>
+            <button type="button" class="sample-btn" onclick="loadSample('Orange___Citrus_greening')">
+              <span class="sample-crop">Citrus</span>
+              <span class="sample-disease">Citrus Greening</span>
             </button>
-
-            <button type="button" class="benchmark-card" onclick="loadSample('Orange___Healthy')">
-              <div class="bm-crop">Citrus sinensis</div>
-              <div class="bm-condition status-healthy-text">Asymptomatic Foliage</div>
-            </button>
-
-            <button type="button" class="benchmark-card" onclick="loadSample('Apple___Scab')">
-              <div class="bm-crop">Malus domestica (Apple)</div>
-              <div class="bm-condition">Venturia inaequalis (Scab)</div>
-            </button>
-
-            <button type="button" class="benchmark-card" onclick="loadSample('Paddy___healthy')">
-              <div class="bm-crop">Oryza sativa (Rice)</div>
-              <div class="bm-condition status-healthy-text">Asymptomatic Foliage</div>
+            <button type="button" class="sample-btn" onclick="loadSample('Paddy___healthy')">
+              <span class="sample-crop">Rice</span>
+              <span class="sample-disease text-healthy">Healthy Rice</span>
             </button>
           </div>
         </div>
 
       </section>
 
-      <!-- RIGHT COLUMN: Clinical Diagnostic Assessment & Advisory Console -->
-      <section class="console-panel results-panel" aria-label="Clinical Diagnostic Assessment">
-        
-        <div class="panel-header">
-          <div class="panel-title-wrap">
-            <div class="panel-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <polyline points="14 2 14 8 20 8"/>
-                <line x1="16" y1="13" x2="8" y2="13"/>
-                <line x1="16" y1="17" x2="8" y2="17"/>
-                <polyline points="10 9 9 9 8 9"/>
-              </svg>
-            </div>
-            <div>
-              <h2 class="panel-title">Pathological Examination Assessment</h2>
-              <p class="panel-desc">Etiological diagnosis, differential analysis, and university-aligned treatment protocols</p>
-            </div>
-          </div>
+      <!-- RIGHT: Diagnosis & Treatment Results -->
+      <section class="card results-card">
+        <div class="card-header">
+          <h2 class="card-title">Diagnostic Results</h2>
+          <p class="card-desc">Detailed condition report and treatment plan</p>
         </div>
 
-        <!-- Standby Awaiting State -->
-        <div class="standby-state" id="emptyState">
-          <div class="standby-graphic">
-            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="m4.93 4.93 4.24 4.24"/>
-              <path d="m14.83 9.17 4.24-4.24"/>
-              <path d="m14.83 14.83 4.24 4.24"/>
-              <path d="m9.17 14.83-4.24 4.24"/>
-              <circle cx="12" cy="12" r="4"/>
+        <!-- Standby State -->
+        <div class="standby-view" id="emptyState">
+          <div class="standby-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12A10 10 0 0 1 12 2z"/>
+              <path d="M12 6v6l4 2"/>
             </svg>
           </div>
-          <h3 class="standby-heading">Awaiting Specimen Foliar Ingestion</h3>
-          <p class="standby-sub">Ingest a foliar specimen using the examination console on the left or select a standardized laboratory benchmark. The system will perform real-time ConvNeXt-Tiny inference and synthesize formal TNAU CPCPP phytosanitary measures.</p>
+          <h3 class="standby-title">Ready for Diagnosis</h3>
+          <p class="standby-desc">Upload a crop leaf image on the left or select a sample to diagnose plant diseases and view treatment protocols.</p>
         </div>
 
-        <!-- Active Diagnostic Dossier -->
-        <div id="resultContent" style="display: none;">
-
-          <!-- Status Indicator & Quantitative Certainty Index -->
-          <div class="status-metric-row">
-            <div id="diagnosisBadge" class="clinical-status-badge status-affected">
-              <span class="status-symbol" id="badgeIcon">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                  <line x1="12" y1="9" x2="12" y2="13"/>
-                  <line x1="12" y1="17" x2="12.01" y2="17"/>
+        <!-- Active Result View -->
+        <div class="result-content" id="resultContent" style="display: none;">
+          
+          <!-- Result Summary Banner -->
+          <div class="result-summary-bar">
+            <div id="diagnosisBadge" class="status-badge badge-danger">
+              <span id="badgeIcon" class="badge-icon">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/>
+                  <line x1="12" y1="16" x2="12.01" y2="16"/>
                 </svg>
               </span>
-              <span id="badgeText">Pathology Identified</span>
+              <span id="badgeText">Disease Detected</span>
             </div>
 
-            <div class="certainty-indicator-box">
-              <span class="certainty-label">Diagnostic Certainty Index</span>
-              <span class="certainty-value" id="confidenceValue">98.4%</span>
+            <div class="confidence-tag">
+              <span class="confidence-label">Confidence</span>
+              <span class="confidence-score" id="confidenceValue">98.4%</span>
             </div>
           </div>
 
-          <!-- Optical Quality / Illumination Warning -->
-          <div class="clinical-alert alert-warning" id="qualityAlert" style="display: none;">
-            <div class="alert-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="12"/>
-                <line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
+          <!-- Disease Headline Card -->
+          <div class="headline-box">
+            <div class="headline-tags">
+              <span class="tag-crop" id="cropNameDisplay">Rice (Paddy)</span>
+              <span class="tag-pathogen" id="pathogenDisplay">Pyricularia oryzae (Fungus)</span>
             </div>
-            <div class="alert-text">
-              <strong>Optical Fidelity Alert:</strong>
-              <span id="qualityAlertText">Mild focal blur or high-contrast glare detected in the specimen. For peak diagnostic fidelity, photograph leaf lamina under diffuse daylight.</span>
-            </div>
+            <h3 class="disease-name" id="diseaseNameDisplay">Rice Blast</h3>
           </div>
 
-          <!-- Primary Pathological Profile Card -->
-          <div class="etiology-profile-card">
-            <div class="profile-top-meta">
-              <span class="crop-taxon-tag" id="cropNameDisplay">Oryza sativa (Rice)</span>
-              <span class="pathogen-taxa-tag" id="pathogenDisplay">Pyricularia oryzae (Fungus)</span>
-            </div>
-            <h3 class="pathology-primary-title" id="diseaseNameDisplay">Rice Blast</h3>
-          </div>
-
-          <!-- Neural Engine Telemetry Strip -->
-          <div class="neural-telemetry-strip">
-            <div class="telemetry-col">
-              <div class="strip-label">INFERENCE ARCHITECTURE</div>
-              <div class="strip-value" id="modelEngineTitle">ConvNeXt-Tiny · Single-Stage Joint Classifier</div>
-            </div>
-            <div class="telemetry-col right-align">
-              <div class="strip-label">TARGET CLASSIFICATION</div>
-              <div class="strip-value font-mono" id="modelTargetDisplay">Paddy — Rice Blast</div>
-            </div>
-          </div>
-
-          <!-- Ambiguity Advisory Notice -->
-          <div class="clinical-alert alert-ambiguity" id="ambiguityAlert" style="display: none;">
-            <div class="alert-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="12"/>
-                <line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-            </div>
-            <div class="alert-text">
-              <strong>Equivocal Diagnostic Certainty:</strong>
-              <span id="ambiguityAlertText">Distribution scores are dispersed across multiple taxa. Select the specific botanical crop from the filter tabs to constrain the hypothesis space.</span>
-            </div>
-          </div>
-
-          <!-- Differential Diagnosis Distribution -->
-          <div class="differential-assessment-block" id="differentialCard">
-            <div class="diff-header-row">
-              <div class="diff-title-wrap">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="20" x2="18" y2="10"/>
-                  <line x1="12" y1="20" x2="12" y2="4"/>
-                  <line x1="6" y1="20" x2="6" y2="14"/>
-                </svg>
-                <span class="diff-title-text">Differential Diagnosis Distribution (Top Candidates)</span>
-              </div>
-              <span class="diff-mode-pill" id="diffModeBadge">Autonomous Mode</span>
-            </div>
-
+          <!-- Differential Analysis (Top Candidates) -->
+          <div class="differential-box">
+            <div class="differential-title">Top Predicted Conditions</div>
             <div class="differential-list" id="diffList">
-              <!-- Dynamically populated via app.js -->
+              <!-- Dynamically rendered -->
             </div>
           </div>
 
-          <!-- Macroscopic Lesion Sign -->
-          <div class="clinical-section-card lesion-sign-card">
-            <div class="sec-card-header">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-              </svg>
-              <span class="sec-card-title">Pathognomonic Macroscopic Lesion Sign</span>
-            </div>
-            <div class="sec-card-body" id="fieldSignText">
-              Diamond or spindle-shaped foliar lesions with grayish centers and dark brown margins on the leaf lamina.
-            </div>
-          </div>
-
-          <!-- Clinical Symptomatology Manifestations -->
-          <div class="clinical-section-card">
-            <div class="sec-card-header">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 11 12 14 22 4"/>
-                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
-              </svg>
-              <span class="sec-card-title">Clinical Symptomatology Manifestations</span>
-            </div>
-            <ul class="symptom-criteria-list" id="symptomsList">
-              <li>Spindle-shaped foliar lesions rapidly expanding to scorch whole leaves.</li>
-              <li>Black necrotic neck lesions causing panicles to break and lodge.</li>
+          <!-- Symptoms & Identification -->
+          <div class="info-block">
+            <div class="info-label">Key Symptoms</div>
+            <ul class="symptoms-list" id="symptomsList">
+              <li>Spindle-shaped foliar lesions with grayish centers and brown borders.</li>
+              <li>Rapid expansion causing leaf scorch and reduced photosynthesis.</li>
             </ul>
           </div>
 
-          <!-- TNAU CPCPP Phytosanitary Management Protocol Matrix -->
-          <div class="protocol-matrix-grid">
+          <!-- Treatment Protocols Grid -->
+          <div class="treatment-cards">
             
-            <!-- Chemical Therapeutic Prescription -->
-            <div class="protocol-card card-therapeutic" id="chemicalSection">
-              <div class="protocol-card-header">
-                <div class="protocol-icon-wrap icon-chemical">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Chemical Treatment -->
+            <div class="treatment-item chemical-item" id="chemicalSection">
+              <div class="treatment-item-header">
+                <div class="treatment-item-icon icon-blue">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M10 2v7.31"/>
                     <path d="M14 9.3V2"/>
                     <path d="M8.5 2h7"/>
                     <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
-                    <path d="M5.52 16h12.96"/>
                   </svg>
                 </div>
-                <div>
-                  <h4 class="protocol-title">Therapeutic Chemical Intervention</h4>
-                  <span class="protocol-sub">Immediate target curative treatment and calibrated dosage</span>
-                </div>
+                <div class="treatment-item-title">Chemical Treatment</div>
               </div>
-              <div class="protocol-body" id="chemicalText">
+              <div class="treatment-item-text" id="chemicalText">
                 Spray Tricyclazole 75 WP @ 1.0 g/L or Isoprothiolane 40 EC @ 1.5 mL/L immediately upon symptom appearance.
               </div>
             </div>
 
-            <!-- Biological Biocontrol & Organic Protocols -->
-            <div class="protocol-card card-biocontrol" id="organicSection">
-              <div class="protocol-card-header">
-                <div class="protocol-icon-wrap icon-organic">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Organic Control -->
+            <div class="treatment-item organic-item" id="organicSection">
+              <div class="treatment-item-header">
+                <div class="treatment-item-icon icon-green">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22v-7"/>
                     <path d="M9 8.5C9 4 12 2 12 2s3 2 3 6.5c0 3-1.5 5.5-3 5.5s-3-2.5-3-5.5Z"/>
-                    <path d="M12 15c-3 0-6.5-1-8.5-3.5 0 0 1-3.5 4.5-4 2.5-.3 4 1.5 4 1.5"/>
-                    <path d="M12 15c3 0 6.5-1 8.5-3.5 0 0-1-3.5-4.5-4-2.5-.3-4 1.5-4 1.5"/>
                   </svg>
                 </div>
-                <div>
-                  <h4 class="protocol-title">Biological Biocontrol & Eco-Remediation</h4>
-                  <span class="protocol-sub">Antagonistic microbial inoculation & organic bio-stimulants</span>
-                </div>
+                <div class="treatment-item-title">Organic & Biological Control</div>
               </div>
-              <div class="protocol-body" id="organicText">
+              <div class="treatment-item-text" id="organicText">
                 Foliar spray of Pseudomonas fluorescens @ 10 g/L or Panchagavya 3% (30 mL/L).
               </div>
             </div>
 
-            <!-- Prophylactic & Cultural Biosecurity Safeguards -->
-            <div class="protocol-card card-prophylactic" id="preventionSection">
-              <div class="protocol-card-header">
-                <div class="protocol-icon-wrap icon-prevention">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Prevention -->
+            <div class="treatment-item prevention-item" id="preventionSection">
+              <div class="treatment-item-header">
+                <div class="treatment-item-icon icon-amber">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    <polyline points="9 12 11 14 15 10"/>
                   </svg>
                 </div>
-                <div>
-                  <h4 class="protocol-title">Prophylactic Biosecurity & Field Sanitation</h4>
-                  <span class="protocol-sub">Cultural practices to prevent recurrence and spore propagation</span>
-                </div>
+                <div class="treatment-item-title">Prevention & Crop Care</div>
               </div>
-              <div class="protocol-body" id="preventionText">
+              <div class="treatment-item-text" id="preventionText">
                 Split nitrogen fertilizer into 3 applications; seed treatment with Tricyclazole @ 2 g/kg; avoid prolonged moisture stress.
               </div>
             </div>
 
           </div>
 
-          <!-- Clinical Utility Toolbar -->
-          <div class="clinical-action-toolbar">
-            <button type="button" class="btn btn-audio" id="btnSpeak" onclick="speakDiagnosis()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Bottom Action Buttons -->
+          <div class="actions-footer">
+            <button type="button" class="btn btn-outline" id="btnSpeak" onclick="speakDiagnosis()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                 <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
               </svg>
-              <span>Synthesize Audio Advisory</span>
+              <span>Listen to Advisory</span>
             </button>
 
-            <button type="button" class="btn btn-export" id="btnPrint" onclick="window.print()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button type="button" class="btn btn-primary" id="btnPrint" onclick="window.print()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 6 2 18 2 18 9"/>
                 <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
                 <rect x="6" y="14" width="12" height="8"/>
               </svg>
-              <span>Export Clinical Diagnostic Record</span>
+              <span>Print Report</span>
             </button>
           </div>
 
@@ -534,24 +288,15 @@
 
       </section>
 
-    </main>
+    </div>
+  </main>
 
-    <!-- Institutional Standards & Compliance Footer -->
-    <footer class="enterprise-footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <span class="footer-title">AgroGuard Enterprise Edition v1.0</span>
-          <span class="footer-desc">Autonomous Computer Vision Diagnostics compliant with Tamil Nadu Agricultural University (TNAU) CPCPP Protocols</span>
-        </div>
-        <div class="footer-specs">
-          <span>Vision Architecture: ConvNeXt-Tiny (Single-Stage 48-Class End-to-End Classifier)</span>
-          <span>·</span>
-          <span>51,320 Standardized Botanical Specimens</span>
-        </div>
-      </div>
-    </footer>
-
-  </div>
+  <!-- Clean Footer -->
+  <footer class="app-footer">
+    <div class="footer-text">
+      <strong>AgroGuard</strong> — AI Crop Disease Diagnostic System · Powered by ConvNeXt-Tiny & TNAU CPCPP Standards
+    </div>
+  </footer>
 
   <script src="/static/js/app.js"></script>
 </body>

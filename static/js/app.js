@@ -1,41 +1,41 @@
 /**
- * AgroGuard Enterprise — Diagnostic Controller & Client Logic
- * Standardized for clinical agricultural telemetry · Zero Emojis
+ * AgroGuard — Simple & Professional Client Diagnostic Controller
+ * Zero Emojis · Clean SVG Indicators · Professional Terminology
  */
 
 let lastDiagnosis = null;
 let currentCropFilter = 'all';
 
-// -- SVG Icon Templates --
+// Clean SVG Icons
 const SVG_ICONS = {
-  check: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-  alert: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
-  clock: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+  check: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  alert: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+  clock: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
 };
 
-// -- Crop Taxon Scope Selection --
+// Crop Filter Toggle
 function setCropFilter(crop, btnElement) {
   currentCropFilter = crop;
-  document.querySelectorAll('.taxa-chip').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.crop-pill').forEach(c => c.classList.remove('active'));
   if (btnElement) btnElement.classList.add('active');
 
   const badge = document.getElementById('activeFilterBadge');
   if (badge) {
     if (crop === 'all') {
-      badge.innerText = 'Autonomous Multi-Taxa Detection';
+      badge.innerText = 'All Crops';
     } else {
-      badge.innerText = `Constrained Scope: ${crop.replace('_', ' ')}`;
+      badge.innerText = crop.replace('_', ' ');
     }
   }
 
-  // If an image is currently loaded, re-evaluate with the selected taxon scope
+  // If a file is currently selected, re-predict with selected crop filter
   const fileInput = document.getElementById('fileInput');
   if (fileInput && fileInput.files && fileInput.files[0]) {
     uploadAndPredict(fileInput.files[0]);
   }
 }
 
-// -- File Input Triggers --
+// File Triggers
 function triggerFileInput() {
   const input = document.getElementById('fileInput');
   input.removeAttribute('capture');
@@ -48,19 +48,19 @@ function triggerCamera() {
   input.click();
 }
 
-// -- Drag & Drop Event Listeners --
+// Drag & Drop
 const uploadZone = document.getElementById('uploadZone');
 
 if (uploadZone) {
-  ['dragenter', 'dragover'].forEach(eventName => {
-    uploadZone.addEventListener(eventName, (e) => {
+  ['dragenter', 'dragover'].forEach(name => {
+    uploadZone.addEventListener(name, (e) => {
       e.preventDefault();
       uploadZone.classList.add('drag-over');
     }, false);
   });
 
-  ['dragleave', 'drop'].forEach(eventName => {
-    uploadZone.addEventListener(eventName, (e) => {
+  ['dragleave', 'drop'].forEach(name => {
+    uploadZone.addEventListener(name, (e) => {
       e.preventDefault();
       uploadZone.classList.remove('drag-over');
     }, false);
@@ -82,7 +82,7 @@ function handleFileSelect(event) {
   }
 }
 
-// -- Process & Upload Specimen --
+// Process Image
 function processFile(file) {
   const reader = new FileReader();
   reader.onload = function(e) {
@@ -96,33 +96,29 @@ function showPreview(imageSrc) {
   const previewContainer = document.getElementById('previewContainer');
   const previewImage = document.getElementById('previewImage');
   const scanLaser = document.getElementById('scanLaser');
-  const scanGrid = document.getElementById('scanGrid');
 
   previewImage.src = imageSrc;
   previewContainer.style.display = 'block';
   scanLaser.style.display = 'block';
-  scanGrid.style.display = 'block';
 
-  // Smooth scroll for smaller viewports
-  if (window.innerWidth < 1120) {
+  // Smooth scroll for mobile
+  if (window.innerWidth < 960) {
     previewContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  // Hide standby state, display result container with analyzing indicator
+  // Update view
   document.getElementById('emptyState').style.display = 'none';
   document.getElementById('resultContent').style.display = 'block';
-  document.getElementById('confidenceValue').innerText = 'Computing...';
-  document.getElementById('diseaseNameDisplay').innerText = 'Scanning Lamina Architecture...';
+  document.getElementById('confidenceValue').innerText = 'Analyzing...';
+  document.getElementById('diseaseNameDisplay').innerText = 'Diagnosing Leaf...';
 }
 
 function stopLaser() {
   const scanLaser = document.getElementById('scanLaser');
-  const scanGrid = document.getElementById('scanGrid');
   if (scanLaser) scanLaser.style.display = 'none';
-  if (scanGrid) scanGrid.style.display = 'none';
 }
 
-// -- Execute Inference Request to FastAPI Backend --
+// Send to FastAPI /api/predict
 async function uploadAndPredict(file) {
   const formData = new FormData();
   formData.append('file', file);
@@ -145,143 +141,94 @@ async function uploadAndPredict(file) {
     }
 
     if (!response.ok) {
-      throw new Error(data.detail || `Diagnostic service error: ${response.statusText}`);
+      throw new Error(data.detail || `Server error: ${response.statusText}`);
     }
 
     renderDiagnosis(data);
   } catch (error) {
     stopLaser();
-    console.error('Diagnostic error:', error);
-    alert(error.message || 'Inference request failed. Please check backend connection.');
+    console.error('Diagnosis error:', error);
+    alert(error.message || 'Diagnostic request failed. Please check server connection.');
   }
 }
 
-// -- Ingest Standardized Benchmark Sample --
+// Load Benchmark Sample
 async function loadSample(sampleClass) {
   try {
     const res = await fetch(`/api/sample/${sampleClass}`);
-    if (!res.ok) throw new Error("Unable to retrieve reference specimen from server");
+    if (!res.ok) throw new Error("Could not load sample image");
     const blob = await res.blob();
     const file = new File([blob], `${sampleClass}.jpg`, { type: 'image/jpeg' });
     processFile(file);
   } catch (err) {
-    console.error("Error loading benchmark specimen:", err);
-    alert("Could not load reference benchmark specimen from server.");
+    console.error("Error loading sample:", err);
+    alert("Could not load test sample image from server.");
   }
 }
 
-// -- Render Diagnostic Assessment Dossier --
+// Render Results
 function renderDiagnosis(data) {
   lastDiagnosis = data;
   const isHealthy = data.is_healthy;
 
-  // Pathological Status Badge
+  // Status Badge
   const badge = document.getElementById('diagnosisBadge');
   const badgeIcon = document.getElementById('badgeIcon');
   const badgeText = document.getElementById('badgeText');
 
   if (badge) {
     if (isHealthy) {
-      badge.className = 'clinical-status-badge status-healthy';
+      badge.className = 'status-badge badge-success';
       if (badgeIcon) badgeIcon.innerHTML = SVG_ICONS.check;
-      if (badgeText) badgeText.innerText = 'Asymptomatic Foliar Specimen';
+      if (badgeText) badgeText.innerText = 'Healthy Crop';
       const chemSec = document.getElementById('chemicalSection');
       if (chemSec) chemSec.style.display = 'none';
     } else {
-      badge.className = 'clinical-status-badge status-affected';
+      badge.className = 'status-badge badge-danger';
       if (badgeIcon) badgeIcon.innerHTML = SVG_ICONS.alert;
-      if (badgeText) badgeText.innerText = 'Pathology Identified';
+      if (badgeText) badgeText.innerText = 'Disease Detected';
       const chemSec = document.getElementById('chemicalSection');
       if (chemSec) chemSec.style.display = 'block';
     }
   }
 
-  // Diagnostic Certainty Index
+  // Confidence
   const confPct = (data.confidence * 100).toFixed(1);
   const confValEl = document.getElementById('confidenceValue');
   if (confValEl) confValEl.innerText = `${confPct}%`;
 
-  // Neural Engine Telemetry
-  const engineTitleEl = document.getElementById('modelEngineTitle');
-  if (engineTitleEl && data.model_engine) {
-    engineTitleEl.innerText = data.model_engine.name || 'ConvNeXt-Tiny · Single-Stage Joint Vision';
-  }
+  // Headline
+  document.getElementById('cropNameDisplay').innerText = data.crop_en;
+  document.getElementById('diseaseNameDisplay').innerText = data.disease_en;
+  document.getElementById('pathogenDisplay').innerText = data.pathogen || 'Plant Pathogen';
 
-  const targetDispEl = document.getElementById('modelTargetDisplay');
-  if (targetDispEl) {
-    targetDispEl.innerText = `${data.crop_en} — ${data.disease_en}`;
-  }
-
-  // Optical Quality & Focal Lighting Notice
-  const qualityAlert = document.getElementById('qualityAlert');
-  if (data.is_low_quality || data.confidence < 0.65) {
-    qualityAlert.style.display = 'flex';
-  } else {
-    qualityAlert.style.display = 'none';
-  }
-
-  // Ambiguity Advisory Notice
-  const ambAlert = document.getElementById('ambiguityAlert');
-  const ambText = document.getElementById('ambiguityAlertText');
-  if (ambAlert) {
-    if (data.is_ambiguous) {
-      ambAlert.style.display = 'flex';
-      if (ambText && data.ambiguity_message) ambText.innerText = data.ambiguity_message;
-    } else {
-      ambAlert.style.display = 'none';
-    }
-  }
-
-  // Render Differential Diagnosis Distribution
+  // Differential List
   const diffList = document.getElementById('diffList');
-  const diffBadge = document.getElementById('diffModeBadge');
-
-  if (diffBadge) {
-    if (data.selected_crop_filter && data.selected_crop_filter !== 'all') {
-      diffBadge.innerText = `Constrained: ${data.selected_crop_filter.replace('_', ' ')}`;
-    } else {
-      diffBadge.innerText = 'Autonomous Mode';
-    }
-  }
-
   if (diffList && data.top3_predictions && data.top3_predictions.length > 0) {
     diffList.innerHTML = '';
-    data.top3_predictions.forEach((item, index) => {
-      const isPrimary = index === 0;
-      const probPct = (item.confidence * 100).toFixed(1);
-
-      const div = document.createElement('div');
-      div.className = `diff-item ${isPrimary ? 'diff-primary' : ''}`;
-      div.innerHTML = `
-        <div class="diff-rank">${index + 1}</div>
-        <div class="diff-info">
-          <div class="diff-target-row">
-            <span class="diff-target-name">${item.crop_en} — ${item.disease_en} ${item.is_healthy ? '<span style="color: #15803d; font-weight: 700; margin-left: 6px; font-size: 0.72rem;">[Asymptomatic]</span>' : ''}</span>
-            <span class="diff-prob-val">${probPct}%</span>
-          </div>
-          <div class="diff-bar-container">
-            <div class="diff-bar-fill" style="width: ${Math.max(6, probPct)}%;"></div>
-          </div>
+    data.top3_predictions.forEach(item => {
+      const pct = (item.confidence * 100).toFixed(1);
+      const row = document.createElement('div');
+      row.className = 'diff-row';
+      row.innerHTML = `
+        <div class="diff-labels">
+          <span>${item.crop_en} — ${item.disease_en}</span>
+          <span>${pct}%</span>
+        </div>
+        <div class="diff-bar">
+          <div class="diff-bar-fill" style="width: ${Math.max(5, pct)}%;"></div>
         </div>
       `;
-      diffList.appendChild(div);
+      diffList.appendChild(row);
     });
   }
 
-  // Primary Pathological Profile Display
-  document.getElementById('cropNameDisplay').innerText = data.crop_en;
-  document.getElementById('diseaseNameDisplay').innerText = data.disease_en;
-  document.getElementById('pathogenDisplay').innerText = data.pathogen || 'Etiological Agent';
-
-  // Macroscopic Lesion Sign
-  document.getElementById('fieldSignText').innerText = data.field_sign || 'Distinct macroscopic foliar symptoms identified on specimen lamina.';
-
-  // Clinical Symptomatology Criteria
+  // Symptoms
   const list = document.getElementById('symptomsList');
   list.innerHTML = '';
   const symptoms = (data.symptoms && data.symptoms.length > 0) ? data.symptoms : [
-    "Foliar lesions present across leaf lamina impacting photosynthetic capacity.",
-    "Localized cellular chlorosis and vascular tissue necrosis."
+    "Foliar lesions present across leaf lamina.",
+    "Tissue discoloration and reduced vitality."
   ];
   symptoms.forEach(sym => {
     const li = document.createElement('li');
@@ -289,16 +236,16 @@ function renderDiagnosis(data) {
     list.appendChild(li);
   });
 
-  // TNAU CPCPP Treatment Protocols
-  document.getElementById('chemicalText').innerText = data.chemical_control || 'Therapeutic chemical intervention not required for this specimen state.';
-  document.getElementById('organicText').innerText = data.organic_control || 'Administer certified organic bio-stimulant or foliar compost tea.';
-  document.getElementById('preventionText').innerText = data.prevention || 'Implement standard agronomic sanitation, balanced nutrient management, and biosecurity scouting.';
+  // Treatments
+  document.getElementById('chemicalText').innerText = data.chemical_control || 'No chemical treatment needed.';
+  document.getElementById('organicText').innerText = data.organic_control || 'Apply standard organic bio-fertilizer or compost tea.';
+  document.getElementById('preventionText').innerText = data.prevention || 'Maintain field sanitation, proper irrigation, and crop scouting.';
 }
 
-// -- Clinical Verbal Consultation (Speech Synthesis) --
+// Audio Advisory
 function speakDiagnosis() {
   if (!('speechSynthesis' in window) || !lastDiagnosis) {
-    alert("Speech synthesis service is unavailable in this environment.");
+    alert("Speech synthesis is not supported in this browser.");
     return;
   }
 
@@ -306,35 +253,31 @@ function speakDiagnosis() {
 
   let textToSpeak = "";
   if (lastDiagnosis.is_healthy) {
-    textToSpeak = `Diagnostic evaluation complete for specimen classified as ${lastDiagnosis.crop_en}. Foliar lamina exhibits no active lesion morphology or necrosis. Tissue condition is verified asymptomatic. Continue calibrated irrigation and agronomic nutrient monitoring.`;
+    textToSpeak = `Plant identified as ${lastDiagnosis.crop_en}. The foliage is healthy with no disease symptoms detected. Continue normal crop care.`;
   } else {
-    textToSpeak = `Diagnostic assessment complete. Specimen classified as ${lastDiagnosis.crop_en}, presenting with ${lastDiagnosis.disease_en}. Etiological agent: ${lastDiagnosis.pathogen || 'Plant Pathogen'}. Recommended therapeutic chemical intervention: ${lastDiagnosis.chemical_control || 'Standard treatment'}. Recommended biological biocontrol: ${lastDiagnosis.organic_control || 'Standard bio-control'}. Prophylactic biosecurity measures: ${lastDiagnosis.prevention || 'Standard prevention'}.`;
+    textToSpeak = `Diagnosis report for ${lastDiagnosis.crop_en}. Condition identified: ${lastDiagnosis.disease_en}. Pathogen: ${lastDiagnosis.pathogen || 'Plant pathogen'}. Chemical treatment: ${lastDiagnosis.chemical_control}. Organic treatment: ${lastDiagnosis.organic_control}. Prevention: ${lastDiagnosis.prevention}.`;
   }
 
   const utterance = new SpeechSynthesisUtterance(textToSpeak);
   utterance.lang = 'en-US';
   utterance.rate = 0.95;
-  utterance.pitch = 1.0;
   window.speechSynthesis.speak(utterance);
 }
 
-// -- Model Status Verification & Telemetry Ping --
+// Check Model Status
 async function checkModelStatus() {
   try {
     const res = await fetch('/api/model-info');
     if (!res.ok) return;
     const info = await res.json();
     const textEl = document.getElementById('headerStatusText');
-    const badgeEl = document.getElementById('headerStatusBadge');
     if (info.is_model_loaded) {
-      if (textEl) textEl.innerText = 'Operational · 48 Classes Active';
-      if (badgeEl) badgeEl.className = 'telemetry-item badge-operational';
+      if (textEl) textEl.innerText = 'Operational (48 Classes)';
     } else {
-      if (textEl) textEl.innerText = 'Standby · Awaiting Weights';
-      if (badgeEl) badgeEl.className = 'telemetry-item';
+      if (textEl) textEl.innerText = 'Awaiting Weights';
     }
   } catch (err) {
-    console.warn("Telemetry status check failed:", err);
+    console.warn("Could not check model status:", err);
   }
 }
 
@@ -348,22 +291,20 @@ function showModelPendingCard(msg) {
   const badgeIcon = document.getElementById('badgeIcon');
   const badgeText = document.getElementById('badgeText');
   if (badge) {
-    badge.className = 'clinical-status-badge status-affected';
+    badge.className = 'status-badge badge-danger';
     if (badgeIcon) badgeIcon.innerHTML = SVG_ICONS.clock;
-    if (badgeText) badgeText.innerText = 'Model Weights Pending';
+    if (badgeText) badgeText.innerText = 'Weights Pending';
   }
 
   document.getElementById('confidenceValue').innerText = '0.0%';
-  document.getElementById('cropNameDisplay').innerText = 'Diagnostic Engine Standby';
-  document.getElementById('diseaseNameDisplay').innerText = 'Model Checkpoint Not Detected';
-  document.getElementById('pathogenDisplay').innerText = 'Requires best_agroguard_model.pth in project root';
-  document.getElementById('fieldSignText').innerText = msg || "Neural network model weights ('best_agroguard_model.pth') not found on disk. Please train the model via AgroGuard Model.ipynb, Colab, or Kaggle, and place the resulting 'best_agroguard_model.pth' into the repository root.";
+  document.getElementById('cropNameDisplay').innerText = 'Model Offline';
+  document.getElementById('diseaseNameDisplay').innerText = 'Awaiting best_agroguard_model.pth';
+  document.getElementById('pathogenDisplay').innerText = 'Please place trained weights in project root';
 
   const list = document.getElementById('symptomsList');
   list.innerHTML = `
-    <li>Execute <b>c:\\AgroGuard\\AgroGuard Model.ipynb</b>, <b>Colab AgroGuard Model.ipynb</b>, or <b>Kaggle Model.ipynb</b>.</li>
-    <li>Place the exported <b>best_agroguard_model.pth</b> directly into <b>c:\\AgroGuard\\</b>.</li>
-    <li>The FastAPI diagnostic server will automatically hot-reload the weights and activate full inference.</li>
+    <li>Place <b>best_agroguard_model.pth</b> directly into the project folder.</li>
+    <li>The server will automatically detect the weights and activate AI diagnosis.</li>
   `;
 
   const chemSec = document.getElementById('chemicalSection');
@@ -372,11 +313,6 @@ function showModelPendingCard(msg) {
   if (orgSec) orgSec.style.display = 'none';
   const prevSec = document.getElementById('preventionSection');
   if (prevSec) prevSec.style.display = 'none';
-
-  const badgeEl = document.getElementById('headerStatusBadge');
-  const textEl = document.getElementById('headerStatusText');
-  if (badgeEl) badgeEl.className = 'telemetry-item';
-  if (textEl) textEl.innerText = 'Standby · Awaiting Weights';
 }
 
 document.addEventListener('DOMContentLoaded', checkModelStatus);
