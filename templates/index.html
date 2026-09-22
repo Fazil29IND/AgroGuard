@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroGuard — AI Crop Disease Diagnostic & Farmer Advisory</title>
+  <meta name="description" content="AI-Powered Agricultural Crop Disease Diagnostic Engine. Two-Stage Vision CNN providing immediate, brief, professional treatment and prevention protocols for farmers.">
+  
+  <!-- Typography matching Model.ipynb -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- 🌾 Top Agricultural Hero Header (Model.ipynb Palette) -->
+    <header class="agro-hero">
+      <div class="hero-top-row">
+        <div class="brand">
+          <div class="brand-icon">🌱</div>
+          <div>
+            <h1 class="brand-title">AgroGuard</h1>
+            <div class="brand-subtitle">AI-Powered Agricultural Disease Diagnosis & Farm Advisory</div>
+          </div>
+        </div>
+
+        <div class="header-status">
+          <div class="agro-badge badge-emerald" id="headerStatusBadge" onclick="checkModelStatus()" title="Click to re-scan for best_agroguard_model.pth" style="cursor: pointer;">
+            <span class="status-dot" id="headerStatusDot"></span>
+            <span id="headerStatusText">Unified Vision Engine Ready (48 Classes)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Farmer 3-Step Workflow Guide -->
+      <div class="workflow-steps">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <div class="step-title">Take or Upload Photo</div>
+            <div class="step-desc">Capture a clear photo of an affected crop leaf</div>
+          </div>
+        </div>
+        <div class="step-arrow">➔</div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <div class="step-title">Instant AI Scan</div>
+            <div class="step-desc">ConvNeXt-Tiny unified vision model detects crop & pathology</div>
+          </div>
+        </div>
+        <div class="step-arrow">➔</div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <div class="step-title">Farmer Action Plan</div>
+            <div class="step-desc">Precise chemical dosage, organic care & prevention</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 🔍 Main Interactive Grid -->
+    <main class="main-grid">
+
+      <!-- LEFT COLUMN: Image Upload & Laser Scanner -->
+      <section class="white-card" aria-label="Upload Section">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-icon">📷</span>
+            <div>
+              <h2 class="card-title">Leaf Image Scanner</h2>
+              <p class="card-desc">Upload or capture a photo of any crop leaf from your field</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Optional Crop Species Filter (Default: Auto-Detect All Crops) -->
+        <div class="crop-filter-container">
+          <div class="filter-header">
+            <span class="filter-label">🌱 Crop Species Filter (Optional):</span>
+            <span class="filter-hint" id="activeFilterBadge">✨ Auto-Detect All Crops</span>
+          </div>
+          <div class="crop-filter-chips" id="cropFilterChips">
+            <button type="button" class="crop-filter-chip active" data-crop="all" onclick="setCropFilter('all', this)">
+              <span>✨</span> All Crops (Auto-Detect)
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Tomato" onclick="setCropFilter('Tomato', this)">
+              <span>🍅</span> Tomato
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Paddy" onclick="setCropFilter('Paddy', this)">
+              <span>🌾</span> Paddy (Rice)
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Potato" onclick="setCropFilter('Potato', this)">
+              <span>🥔</span> Potato
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Corn" onclick="setCropFilter('Corn', this)">
+              <span>🌽</span> Corn (Maize)
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Orange" onclick="setCropFilter('Orange', this)">
+              <span>🍊</span> Orange (Citrus)
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Grape" onclick="setCropFilter('Grape', this)">
+              <span>🍇</span> Grape
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Pepper" onclick="setCropFilter('Pepper', this)">
+              <span>🫑</span> Pepper (Chilli)
+            </button>
+            <button type="button" class="crop-filter-chip" data-crop="Black_gram" onclick="setCropFilter('Black_gram', this)">
+              <span>🌿</span> Black Gram
+            </button>
+          </div>
+        </div>
+
+        <!-- Drag & Drop Zone -->
+        <div class="upload-zone" id="uploadZone" onclick="triggerFileInput()">
+          <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+          <div class="upload-icon-circle">
+            <span class="upload-icon">🍃</span>
+          </div>
+          <div class="upload-prompt">Drop leaf photo here, or click to choose</div>
+          <div class="upload-sub">Supports JPG, PNG & WebP · Works in outdoor field lighting</div>
+          
+          <div class="upload-actions">
+            <button type="button" class="btn btn-primary" id="btnSelectFile" onclick="event.stopPropagation(); triggerFileInput()">
+              <span>📂</span> <span>Choose Photo</span>
+            </button>
+            <button type="button" class="btn btn-camera" id="btnCamera" onclick="event.stopPropagation(); triggerCamera()">
+              <span>📸</span> <span>Take Photo</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanner View Container with Laser Animation -->
+        <div class="preview-container" id="previewContainer">
+          <img id="previewImage" class="preview-image" alt="Uploaded leaf preview">
+          <div class="scan-grid-overlay" id="scanGrid"></div>
+          <div class="scan-laser" id="scanLaser"></div>
+        </div>
+
+        <!-- Quick 1-Click Samples for Farmers & Testers -->
+        <div class="sample-section">
+          <div class="section-label">⚡ Instant Test Samples (Click to Diagnose):</div>
+          <div class="sample-chips">
+            <button type="button" class="sample-chip" onclick="loadSample('Paddy___Blast')">
+              <span>🌾</span> Rice Blast
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Tomato___Early_blight')">
+              <span>🍅</span> Tomato Early Blight
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Potato___Late_blight')">
+              <span>🥔</span> Potato Late Blight
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Corn___Common_rust')">
+              <span>🌽</span> Corn Common Rust
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Orange___Citrus_greening')">
+              <span>🍊</span> Citrus Greening
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Orange___Healthy')">
+              <span>🍊</span> Healthy Orange
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Apple___Scab')">
+              <span>🍎</span> Apple Scab
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Apple___Healthy')">
+              <span>🍏</span> Healthy Apple
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Paddy___healthy')">
+              <span>✅</span> Healthy Paddy
+            </button>
+            <button type="button" class="sample-chip" onclick="loadSample('Tomato___healthy')">
+              <span>✅</span> Healthy Tomato
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: Real-Time Diagnostic Dashboard -->
+      <section class="white-card results-card" aria-label="Diagnostic Results">
+        <div class="card-header">
+          <div class="card-title-group">
+            <span class="card-icon">🔬</span>
+            <div>
+              <h2 class="card-title">Diagnostic Report & Advisory</h2>
+              <p class="card-desc">Brief, professional and actionable farm treatment recommendations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty Placeholder State before analysis -->
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon-circle">
+            <span class="empty-icon">🌿</span>
+          </div>
+          <h3 class="empty-heading">Awaiting Leaf Photo</h3>
+          <p class="empty-sub">Select or capture a leaf photo on the left. AgroGuard will instantly identify the plant, diagnose any active diseases, and outline exact treatment steps.</p>
+        </div>
+
+        <!-- Active Result Dashboard -->
+        <div id="resultContent" style="display: none;">
+          
+          <!-- Diagnosis Status Header & Confidence -->
+          <div class="result-header-row">
+            <div id="diagnosisBadge" class="diagnosis-badge badge-affected">
+              <span id="badgeIcon">⚠️</span>
+              <span id="badgeText">Disease Detected</span>
+            </div>
+            
+            <div class="confidence-box">
+              <span class="conf-label">Diagnostic Certainty</span>
+              <span class="conf-value" id="confidenceValue">98.4%</span>
+            </div>
+          </div>
+
+          <!-- Quality Guard Notice (Blur / Glare alert) -->
+          <div class="quality-alert" id="qualityAlert">
+            <strong>⚠️ Low-Lighting or Blur Alert:</strong>
+            <span id="qualityAlertText"> Mild blur or glare detected in the image. For highest diagnostic certainty, hold the camera steady under diffuse daylight.</span>
+          </div>
+
+          <!-- Crop & Disease Headline Banner -->
+          <div class="crop-headline-card">
+            <div class="headline-meta">
+              <span class="crop-tag" id="cropNameDisplay">Paddy (Rice)</span>
+              <span class="pathogen-tag" id="pathogenDisplay">Pyricularia oryzae (Fungus)</span>
+            </div>
+            <h3 class="disease-headline" id="diseaseNameDisplay">Rice Blast</h3>
+          </div>
+
+          <!-- Single Unified Vision Model Diagnostics Indicator -->
+          <div class="unified-model-card" id="unifiedModelCard">
+            <div class="unified-header-row">
+              <div class="model-badge">
+                <span class="pulse-dot"></span>
+                <span id="modelEngineTitle">Unified SOTA Model · ConvNeXt-Tiny</span>
+              </div>
+              <span class="model-class-tag" id="modelTotalClassesTag">48 Unified Joint Classes</span>
+            </div>
+            
+            <div class="unified-body-row">
+              <div class="unified-meta">
+                <span class="meta-label">END-TO-END PREDICTED TARGET</span>
+                <div class="meta-value" id="modelTargetDisplay">Paddy — Rice Blast</div>
+                <div class="meta-sub" id="modelPipelineSub">Single-Stage Joint Vision Inference · 9 Botanical Species</div>
+              </div>
+              <div class="unified-meter-box">
+                <div class="meter-bar">
+                  <div class="meter-fill" id="unifiedMeter" style="width: 98%;"></div>
+                </div>
+                <div class="meter-stats">
+                  <span class="meter-conf" id="unifiedConfLabel">Certainty: 98.4%</span>
+                  <span class="meter-latency" id="modelLatencyLabel">⚡ Single-Pass Inference</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ambiguity Warning Notice (Hidden by default, shown if confidence is low or ambiguous) -->
+          <div class="ambiguity-alert" id="ambiguityAlert" style="display: none;">
+            <div class="ambiguity-icon">⚠️</div>
+            <div class="ambiguity-content">
+              <strong>Low Diagnostic Certainty / Ambiguous Foliage</strong>
+              <p id="ambiguityAlertText">Confidence is low across general crop classes. Please ensure the leaf is clearly centered with good daylight, or select your specific crop species from the filter on the left.</p>
+            </div>
+          </div>
+
+          <!-- Top-3 Differential Diagnosis Card -->
+          <div class="differential-card" id="differentialCard">
+            <div class="diff-header">
+              <div class="diff-title-box">
+                <span class="diff-icon">📊</span>
+                <div>
+                  <h4 class="diff-title">Differential Diagnosis (Top Candidate Conditions)</h4>
+                  <span class="diff-subtitle">Ranked probabilities from single unified neural vision pass</span>
+                </div>
+              </div>
+              <span class="diff-mode-badge" id="diffModeBadge">Auto-Detect Mode</span>
+            </div>
+            <div class="diff-list" id="diffList">
+              <!-- Dynamically populated by app.js -->
+            </div>
+          </div>
+
+          <!-- Rapid Field Sign -->
+          <div class="info-card info-field-sign">
+            <div class="info-header">
+              <span class="info-icon">🔍</span>
+              <span class="info-title">Rapid Field Identification Sign</span>
+            </div>
+            <div class="info-body" id="fieldSignText">
+              Diamond or spindle-shaped lesions with gray centers and dark brown borders on the leaf lamina.
+            </div>
+          </div>
+
+          <!-- Key Diagnostic Symptoms -->
+          <div class="info-card">
+            <div class="info-header">
+              <span class="info-icon">📋</span>
+              <span class="info-title">Key Symptoms to Look For</span>
+            </div>
+            <ul class="info-list" id="symptomsList">
+              <li>Spindle-shaped foliar lesions rapidly expanding to scorch whole leaves.</li>
+              <li>Black necrotic neck lesions causing panicles to break and lodge.</li>
+            </ul>
+          </div>
+
+          <!-- Treatment Section: Chemical, Organic & Prevention Grid -->
+          <div class="treatment-grid">
+            
+            <!-- Chemical Treatment Card -->
+            <div class="treatment-card card-chemical" id="chemicalSection">
+              <div class="treatment-header">
+                <span class="treatment-icon">🧪</span>
+                <div>
+                  <h4 class="treatment-title">Recommended Chemical Treatment</h4>
+                  <span class="treatment-subtitle">Immediate intervention with specific dosage</span>
+                </div>
+              </div>
+              <div class="treatment-content" id="chemicalText">
+                Spray Tricyclazole 75 WP @ 1.0 g/L or Isoprothiolane 40 EC @ 1.5 mL/L immediately upon symptom appearance.
+              </div>
+            </div>
+
+            <!-- Organic & Eco-Friendly Card -->
+            <div class="treatment-card card-organic" id="organicSection">
+              <div class="treatment-header">
+                <span class="treatment-icon">🌿</span>
+                <div>
+                  <h4 class="treatment-title">Organic & Biological Treatment</h4>
+                  <span class="treatment-subtitle">Eco-friendly bio-control alternative</span>
+                </div>
+              </div>
+              <div class="treatment-content" id="organicText">
+                Foliar spray of Pseudomonas fluorescens @ 10 g/L or Panchagavya 3% (30 mL/L).
+              </div>
+            </div>
+
+            <!-- Prevention & Cultural Management -->
+            <div class="treatment-card card-prevention" id="preventionSection">
+              <div class="treatment-header">
+                <span class="treatment-icon">🛡️</span>
+                <div>
+                  <h4 class="treatment-title">Future Prevention & Crop Care</h4>
+                  <span class="treatment-subtitle">Cultural practices to stop reinfection</span>
+                </div>
+              </div>
+              <div class="treatment-content" id="preventionText">
+                Split nitrogen fertilizer into 3 doses; treat seeds with Tricyclazole @ 2 g/kg; avoid prolonged moisture stress.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Farmer Actions (Audio Readout & Print) -->
+          <div class="action-footer">
+            <button type="button" class="btn btn-audio" id="btnSpeak" onclick="speakDiagnosis()">
+              <span class="btn-icon">🔊</span> <span>Listen to Advisory</span>
+            </button>
+            <button type="button" class="btn btn-print" id="btnPrint" onclick="window.print()">
+              <span class="btn-icon">🖨️</span> <span>Print Advisory Card</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Clean Agricultural Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>🌱 <strong>AgroGuard</strong> — AI-Powered Crop Disease Diagnostic System for Farmers & Agricultural Extension</p>
+        <p class="footer-sub">Two-Stage Vision Architecture: EfficientNet-V2-S (Plant Identification) + ConvNeXt-Tiny (Universal Disease Diagnosis)</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1240 @@
+/* 🌾 AgroGuard — Agricultural Vision UI
+   Theme: Agriculture White & Green Palette
+   Typography & Color Tokens: Inspired by Model.ipynb
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Model.ipynb Agricultural Colors */
+  --hero-gradient: linear-gradient(135deg, #0d3b1e 0%, #1b5e20 45%, #2e7d32 100%);
+  --hero-shadow: 0 10px 30px rgba(13, 59, 30, 0.25);
+  
+  --primary-forest: #0d3b1e;
+  --primary-deep: #1b5e20;
+  --primary-leaf: #2e7d32;
+  --primary-vibrant: #16a34a;
+  
+  /* Accent Tokens from Model.ipynb */
+  --accent-lime: #aed581;
+  --accent-mint: #dcedc8;
+  --accent-cyan: #7dd3fc;
+  --accent-amber: #ffe082;
+  --accent-purple: #e1bee7;
+  --accent-rose: #fecdd3;
+
+  /* Agricultural Clean Canvas & Card */
+  --bg-canvas: #f4fbf6;
+  --bg-card: #ffffff;
+  --border-light: #e2ece4;
+  --border-green: #bbf7d0;
+
+  /* Typography Colors */
+  --text-title: #0d3b1e;
+  --text-main: #1e293b;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+
+  /* Fonts */
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radius & Shadows */
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-card: 0 4px 20px rgba(13, 59, 30, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 8px 30px rgba(13, 59, 30, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(46, 125, 50, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(174, 213, 129, 0.1) 0px, transparent 50%),
+    radial-gradient(at 50% 30%, rgba(240, 253, 244, 0.8) 0px, transparent 100%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Container ── */
+.app-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 24px 20px 60px 20px;
+}
+
+/* ── Top Agricultural Hero Banner (Model.ipynb) ── */
+.agro-hero {
+  background: var(--hero-gradient);
+  border-radius: var(--radius-lg);
+  padding: 28px 30px;
+  color: #ffffff;
+  font-family: var(--font-main);
+  box-shadow: var(--hero-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin-bottom: 28px;
+}
+
+.hero-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.brand-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  font-size: 0.95rem;
+  color: var(--accent-mint);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Status Badges (Model.ipynb Style) */
+.agro-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 24px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+.badge-emerald {
+  background: rgba(76, 175, 80, 0.25);
+  color: #c8e6c9;
+  border: 1px solid rgba(76, 175, 80, 0.4);
+}
+
+.badge-pending {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fecaca;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.badge-pending .status-dot {
+  background: #f87171;
+  box-shadow: 0 0 8px #f87171;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #69f0ae;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #69f0ae;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* ── Farmer 3-Step Workflow Bar ── */
+.workflow-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+}
+
+@media (max-width: 768px) {
+  .workflow-steps {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .step-arrow {
+    display: none;
+  }
+}
+
+.step-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.step-num {
+  width: 32px;
+  height: 32px;
+  background: var(--accent-lime);
+  color: var(--primary-forest);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.step-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.step-desc {
+  font-size: 0.78rem;
+  color: var(--accent-mint);
+  line-height: 1.3;
+}
+
+.step-arrow {
+  color: var(--accent-lime);
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* ── Main Interactive Grid ── */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 990px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Crisp White Agriculture Card ── */
+.white-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: box-shadow 0.25s ease;
+}
+
+.white-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-icon {
+  font-size: 26px;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-forest);
+  letter-spacing: -0.3px;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Upload Zone (Farmer-Friendly) ── */
+.upload-zone {
+  border: 2px dashed #86efac;
+  border-radius: var(--radius-md);
+  padding: 36px 20px;
+  text-align: center;
+  background: #f0fdf4;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--primary-leaf);
+  background: #dcfce7;
+  transform: translateY(-2px);
+}
+
+.upload-icon-circle {
+  width: 72px;
+  height: 72px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px auto;
+  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.15);
+  border: 1px solid #bbf7d0;
+}
+
+.upload-icon {
+  font-size: 36px;
+}
+
+.upload-prompt {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-forest);
+}
+
+.upload-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.upload-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-deep), var(--primary-leaf));
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(27, 94, 32, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #14532d, #1b5e20);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(27, 94, 32, 0.35);
+}
+
+.btn-camera {
+  background: #ffffff;
+  color: var(--primary-deep);
+  border: 2px solid var(--primary-leaf);
+}
+
+.btn-camera:hover {
+  background: #e8f5e9;
+  transform: translateY(-2px);
+}
+
+/* ── Scanner Preview Container with Laser Animation ── */
+.preview-container {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #0f172a;
+  border: 2px solid var(--primary-leaf);
+  margin-top: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scan-laser {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, #86efac, #ffffff, #86efac, transparent);
+  box-shadow: 0 0 16px 5px #22c55e;
+  animation: scanLaserAnim 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  z-index: 10;
+}
+
+.scan-grid-overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(74, 222, 128, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(74, 222, 128, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes scanLaserAnim {
+  0% { top: 0%; }
+  100% { top: 98%; }
+}
+
+/* ── Sample Gallery Chips ── */
+.sample-section {
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-light);
+}
+
+.section-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-dim);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.sample-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sample-chip {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sample-chip:hover {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: var(--primary-forest);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.15);
+}
+
+/* ── Results Container ── */
+.results-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 380px;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 30px;
+}
+
+.empty-icon-circle {
+  width: 80px;
+  height: 80px;
+  background: #f0fdf4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  border: 1px solid #dcfce7;
+}
+
+.empty-icon {
+  font-size: 42px;
+}
+
+.empty-heading {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-forest);
+  margin-bottom: 8px;
+}
+
+.empty-sub {
+  max-width: 360px;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* ── Result Active State ── */
+.result-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.diagnosis-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-healthy {
+  background: #e8f5e9;
+  border: 1.5px solid #4caf50;
+  color: #1b5e20;
+  box-shadow: 0 4px 14px rgba(76, 175, 80, 0.15);
+}
+
+.badge-affected {
+  background: #fef2f2;
+  border: 1.5px solid #ef4444;
+  color: #b91c1c;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.15);
+}
+
+.confidence-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fafc;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.conf-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.conf-value {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary-deep);
+}
+
+/* ── Quality Alert ── */
+.quality-alert {
+  display: none;
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+  color: #92400e;
+}
+
+/* ── Crop & Disease Headline Card ── */
+.crop-headline-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 18px;
+}
+
+.headline-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.crop-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  background: #dcfce7;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.pathogen-tag {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.disease-headline {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--primary-forest);
+}
+
+/* ── Single Unified Model Diagnostics Indicator (Model.ipynb Style) ── */
+.unified-model-card {
+  background: #ffffff;
+  border: 1px solid var(--border-green);
+  border-left: 4px solid var(--primary-leaf);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(13, 59, 30, 0.05);
+  transition: all 0.3s ease;
+}
+
+.unified-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.model-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-forest);
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #16a34a;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.2);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+.model-class-tag {
+  font-size: 0.74rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: #15803d;
+  background: #dcfce7;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.unified-body-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+@media (max-width: 650px) {
+  .unified-body-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.unified-meta .meta-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.unified-meta .meta-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary-forest);
+  margin: 2px 0;
+}
+
+.unified-meta .meta-sub {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.unified-meter-box {
+  background: #f8fafc;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid #e2e8f0;
+}
+
+.meter-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 70%, #a3e635 100%);
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.meter-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.meter-conf {
+  color: #15803d;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.meter-latency {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+/* ── Diagnostic Information Cards ── */
+.info-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.info-field-sign {
+  background: #f8fafc;
+  border-left: 3px solid #10b981;
+}
+
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.info-icon {
+  font-size: 1.05rem;
+}
+
+.info-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary-forest);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-body {
+  font-size: 0.92rem;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+.info-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.info-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.45;
+}
+
+.info-list li::before {
+  content: "•";
+  position: absolute;
+  left: 6px;
+  color: var(--primary-leaf);
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* ── Structured Treatment Cards (Farmer-Friendly Grid) ── */
+.treatment-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.treatment-card {
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  border: 1px solid transparent;
+  transition: transform 0.2s ease;
+}
+
+.treatment-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.treatment-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.treatment-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.treatment-subtitle {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.treatment-content {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  padding-left: 32px;
+}
+
+/* Chemical Card Styling */
+.card-chemical {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+.card-chemical .treatment-title {
+  color: #0369a1;
+}
+
+/* Organic Card Styling */
+.card-organic {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+.card-organic .treatment-title {
+  color: #15803d;
+}
+
+/* Prevention Card Styling */
+.card-prevention {
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+.card-prevention .treatment-title {
+  color: #b45309;
+}
+
+/* ── Audio & Print Action Footer ── */
+.action-footer {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-light);
+  flex-wrap: wrap;
+}
+
+.btn-audio {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1.5px solid #86efac;
+  flex: 1;
+}
+
+.btn-audio:hover {
+  background: #dcfce7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.15);
+}
+
+.btn-print {
+  background: #f8fafc;
+  color: #334155;
+  border: 1.5px solid #cbd5e1;
+  flex: 1;
+}
+
+.btn-print:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+/* ── Crop Species Filter (Farmer Disambiguation) ── */
+.crop-filter-container {
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--primary-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.filter-hint {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--primary-vibrant);
+  background: #dcfce7;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid #bbf7d0;
+}
+
+.crop-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.crop-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 9999px;
+  padding: 6px 13px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.crop-filter-chip:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+}
+
+.crop-filter-chip.active {
+  background: var(--primary-deep);
+  color: #ffffff;
+  border-color: var(--primary-forest);
+  box-shadow: 0 3px 10px rgba(27, 94, 32, 0.25);
+}
+
+/* ── Ambiguity / Low Confidence Alert ── */
+.ambiguity-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fffbeb;
+  border: 1.5px solid #fef3c7;
+  border-left: 5px solid #f59e0b;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+.ambiguity-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.ambiguity-content strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #92400e;
+  margin-bottom: 3px;
+}
+
+.ambiguity-content p {
+  font-size: 0.84rem;
+  color: #b45309;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* ── Differential Diagnosis (Top-3 Multi-Hypothesis) ── */
+.differential-card {
+  background: #ffffff;
+  border: 1.5px solid #e2ece4;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(13, 59, 30, 0.04);
+}
+
+.diff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.diff-title-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.diff-icon {
+  font-size: 1.3rem;
+}
+
+.diff-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--primary-forest);
+  margin: 0;
+}
+
+.diff-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  display: block;
+  margin-top: 2px;
+}
+
+.diff-mode-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 4px 10px;
+  border-radius: 9999px;
+}
+
+.diff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.diff-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s ease;
+}
+
+.diff-item.diff-primary {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.diff-rank {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.diff-item.diff-primary .diff-rank {
+  background: var(--primary-vibrant);
+  color: #ffffff;
+}
+
+.diff-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.diff-target-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.diff-target-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.diff-prob-val {
+  font-size: 0.88rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--primary-deep);
+}
+
+.diff-bar-container {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.diff-bar-fill {
+  height: 100%;
+  background: #94a3b8;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.diff-item.diff-primary .diff-bar-fill {
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 100%);
+}
+
+/* ── Footer ── */
+.app-footer {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+.footer-sub {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+/* ── Print Stylesheet (Clean Farm Advisory Card Printout) ── */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .agro-hero, .upload-zone, .sample-section, .action-footer, .app-footer, .btn, .step-arrow {
+    display: none !important;
+  }
+  .main-grid {
+    display: block !important;
+  }
+  .results-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .white-card {
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+  }
+}

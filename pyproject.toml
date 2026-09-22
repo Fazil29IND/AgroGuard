@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agroguard"
+version = "1.0.0"
+description = "Single Unified Agricultural Vision Diagnostic Engine for Crop Pathology Detection & Phytosanitary Advisory"
+readme = "README.md"
+authors = [
+    { name = "Amanullah Fazil S", email = "developer@agroguard.ai" }
+]
+license = { text = "MIT" }
+keywords = ["agriculture", "deep-learning", "computer-vision", "convnext", "crop-disease", "fastapi", "pytorch"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Agriculture",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent"
+]
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.28.0",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "timm>=0.9.12",
+    "pillow>=10.0.0",
+    "pydantic>=2.0.0",
+    "jinja2>=3.1.2",
+    "python-multipart>=0.0.9",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/AgroGuard/AgroGuard"
+"Bug Tracker" = "https://github.com/AgroGuard/AgroGuard/issues"
+"Documentation" = "https://github.com/AgroGuard/AgroGuard#readme"
